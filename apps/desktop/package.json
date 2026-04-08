@@ -1,0 +1,21 @@
+{
+  "name": "@fluiddiagram/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/main/main.js",
+  "dependencies": {
+    "@fluiddiagram/domain-model": "workspace:*",
+    "@fluiddiagram/editor-engine": "workspace:*",
+    "@fluiddiagram/simulation-core": "workspace:*",
+    "@fluiddiagram/storage-format": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.8",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "electron": "^34.0.0"
+  }
+}

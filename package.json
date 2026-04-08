@@ -1,0 +1,20 @@
+{
+  "name": "fluiddiagram",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Desktop-first engineering diagram and hydraulic simulation system",
+  "packageManager": "pnpm@9.12.3",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "typecheck": "tsc -b tsconfig.build.json --pretty false",
+    "clean": "rm -rf .tsbuildinfo apps/*/dist packages/*/dist",
+    "lint": "echo 'Linting setup intentionally deferred until tooling policy is defined.'"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}

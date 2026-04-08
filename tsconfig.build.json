@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/domain-model" },
+    { "path": "packages/equipment-library" },
+    { "path": "packages/editor-engine" },
+    { "path": "packages/simulation-core" },
+    { "path": "packages/storage-format" },
+    { "path": "apps/desktop" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@fluiddiagram/storage-format",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@fluiddiagram/domain-model": "workspace:*",
+    "zod": "^3.24.1"
+  }
+}
