@@ -13,6 +13,7 @@
     "build": "tsc -b tsconfig.build.json && pnpm --filter @fluiddiagram/desktop build:renderer",
     "typecheck": "tsc -p tsconfig.json --pretty false",
     "lint": "eslint . --ext .ts,.tsx",
+    "test": "pnpm -r --if-present test",
     "format": "prettier --write .",
     "clean": "rm -rf .tsbuildinfo apps/*/dist apps/*/.vite packages/*/dist"
   },
