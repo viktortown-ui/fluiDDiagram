@@ -36,7 +36,8 @@ example.fdproj/
 ├── libraries/           # project-local equipment/library definitions
 ├── snapshots/           # autosave snapshots (`snapshot-*.fd.json`)
 ├── results/             # simulation outputs and export artifacts
-└── metadata/            # non-authoritative supporting metadata
+├── metadata/            # non-authoritative supporting metadata
+└── migrations/          # migration plans/backups for format upgrades
 ```
 
 `project.fd.json` is always authoritative. Any SQLite usage remains app/service-level and must not become hidden project truth.
