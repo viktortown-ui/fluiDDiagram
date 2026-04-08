@@ -1,6 +1,11 @@
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import type { DiagramGraph, FluidProfile } from "@fluiddiagram/domain";
+import {
+  BUILTIN_EQUIPMENT_TYPE_IDS,
+  type DomainMetadata,
+  type EquipmentTypeId
+} from "@fluiddiagram/domain";
 import { PROJECT_EXTENSION } from "@fluiddiagram/shared";
 
 export const PROJECT_FORMAT_VERSION = 1;
@@ -15,25 +20,63 @@ export const PROJECT_DIRS = {
   migrations: "migrations"
 } as const;
 
+const domainMetadataSchema: z.ZodType<DomainMetadata> = z
+  .object({
+    tags: z.array(z.string()).optional(),
+    notes: z.string().optional(),
+    custom: z.record(z.unknown()).optional()
+  })
+  .strict()
+  .partial();
+
+const portSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  direction: z.enum(["inlet", "outlet", "bidirectional", "unknown"]),
+  role: z.string().min(1),
+  compatibility: z
+    .object({
+      mediumFamilies: z.array(z.string()).optional(),
+      nominalDiameterMm: z.number().positive().optional(),
+      pressureClass: z.string().min(1).optional()
+    })
+    .optional(),
+  metadata: domainMetadataSchema.optional()
+});
+
 const nodeSchema = z.object({
   id: z.string().min(1),
-  kind: z.enum(["Tank", "CentrifugalPump", "BallValve", "Pipe"]),
+  equipmentInstanceId: z.string().min(1),
+  equipmentTypeId: z.string().min(1),
+  kind: z.enum(BUILTIN_EQUIPMENT_TYPE_IDS),
   label: z.string(),
   config: z.unknown(),
-  position: z.object({ x: z.number(), y: z.number() })
+  placement: z.object({
+    position: z.object({ x: z.number(), y: z.number() }),
+    orientationDeg: z.number().optional()
+  }),
+  ports: z.record(portSchema),
+  metadata: domainMetadataSchema.optional()
 });
 
 const edgeSchema = z.object({
   id: z.string().min(1),
-  from: z.object({ nodeId: z.string().min(1), port: z.string().min(1) }),
-  to: z.object({ nodeId: z.string().min(1), port: z.string().min(1) })
+  from: z.object({ nodeId: z.string().min(1), portId: z.string().min(1) }),
+  to: z.object({ nodeId: z.string().min(1), portId: z.string().min(1) }),
+  metadata: domainMetadataSchema.optional()
 });
 
-const fluidSchema = z.object({
+const fluidSchema: z.ZodType<FluidProfile> = z.object({
   id: z.string().min(1),
   displayName: z.string().min(1),
-  densityKgPerM3: z.number().positive(),
-  viscosityPaS: z.number().positive()
+  density: z.object({
+    value: z.number().positive(),
+    unit: z.string().min(1)
+  }),
+  dynamicViscosity: z.object({
+    value: z.number().positive(),
+    unit: z.string().min(1)
+  })
 });
 
 const projectMetadataSchema = z.object({
@@ -49,7 +92,8 @@ export const projectSchema = z.object({
   metadata: projectMetadataSchema,
   graph: z.object({
     nodes: z.record(nodeSchema),
-    edges: z.record(edgeSchema)
+    edges: z.record(edgeSchema),
+    metadata: domainMetadataSchema.optional()
   }),
   fluids: z.array(fluidSchema),
   activeFluidId: z.string().min(1)
@@ -71,8 +115,8 @@ export function createEmptyProject(
   const defaultFluid: FluidProfile = {
     id: "water-20c",
     displayName: "Water (20°C)",
-    densityKgPerM3: 998,
-    viscosityPaS: 0.001
+    density: { value: 998, unit: "kg/m^3" },
+    dynamicViscosity: { value: 0.001, unit: "Pa·s" }
   };
 
   return {
@@ -122,4 +166,8 @@ export function updateProjectGraph(
 
 export function isProjectFolderName(name: string): boolean {
   return name.endsWith(PROJECT_EXTENSION);
+}
+
+export function isBuiltInEquipmentType(typeId: EquipmentTypeId): boolean {
+  return BUILTIN_EQUIPMENT_TYPE_IDS.includes(typeId as (typeof BUILTIN_EQUIPMENT_TYPE_IDS)[number]);
 }

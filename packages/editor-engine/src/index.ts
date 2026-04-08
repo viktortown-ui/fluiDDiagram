@@ -3,10 +3,12 @@ import type {
   DiagramGraph,
   DiagramNode,
   EdgeId,
+  EquipmentInstanceId,
   EquipmentKind,
-  NodeId
+  NodeId,
+  PortId
 } from "@fluiddiagram/domain";
-import { getEquipmentDefinition } from "@fluiddiagram/equipment-lib";
+import { getEquipmentDefinition, instantiatePorts } from "@fluiddiagram/equipment-lib";
 
 export function createEmptyGraph(): DiagramGraph {
   return { nodes: {}, edges: {} };
@@ -37,10 +39,16 @@ export function createNode(
   const definition = getEquipmentDefinition(kind);
   return {
     id,
+    equipmentInstanceId: id as unknown as EquipmentInstanceId,
+    equipmentTypeId: kind,
     kind,
     label: `${definition.displayName} ${id}`,
     config: structuredClone(definition.defaultConfig),
-    position
+    placement: {
+      position,
+      orientationDeg: 0
+    },
+    ports: instantiatePorts(kind)
   };
 }
 
@@ -48,9 +56,9 @@ export function connect(
   graph: DiagramGraph,
   edgeId: EdgeId,
   fromNodeId: NodeId,
-  fromPort: string,
+  fromPortId: PortId,
   toNodeId: NodeId,
-  toPort: string
+  toPortId: PortId
 ): DiagramGraph {
   const fromNode = graph.nodes[fromNodeId];
   const toNode = graph.nodes[toNodeId];
@@ -58,13 +66,13 @@ export function connect(
     throw new Error("Cannot connect edge: missing source or target node.");
   }
 
-  assertValidPort(fromNode.kind, fromPort);
-  assertValidPort(toNode.kind, toPort);
+  assertValidPort(fromNode, fromPortId);
+  assertValidPort(toNode, toPortId);
 
   const edge: DiagramEdge = {
     id: edgeId,
-    from: { nodeId: fromNodeId, port: fromPort },
-    to: { nodeId: toNodeId, port: toPort }
+    from: { nodeId: fromNodeId, portId: fromPortId },
+    to: { nodeId: toNodeId, portId: toPortId }
   };
 
   return {
@@ -76,9 +84,8 @@ export function connect(
   };
 }
 
-function assertValidPort(kind: EquipmentKind, port: string): void {
-  const definition = getEquipmentDefinition(kind);
-  if (!definition.ports.includes(port)) {
-    throw new Error(`Port ${port} is not valid for equipment kind ${kind}.`);
+function assertValidPort(node: DiagramNode, portId: PortId): void {
+  if (!node.ports[portId]) {
+    throw new Error(`Port ${portId} is not valid for equipment kind ${node.kind}.`);
   }
 }
