@@ -7,15 +7,16 @@
   "scripts": {
     "dev": "concurrently -k \"pnpm dev:renderer\" \"pnpm dev:electron\"",
     "dev:renderer": "vite",
-    "dev:electron": "wait-on tcp:5173 && tsc -p tsconfig.main.json && electron dist/main/main.js",
+    "dev:electron": "wait-on tcp:5173 && tsc -b ../../packages/shared ../../packages/file-format ../../packages/storage tsconfig.main.json && electron dist/main/main.js",
     "build": "pnpm build:main && pnpm build:renderer",
-    "build:main": "tsc -p tsconfig.main.json",
+    "build:main": "tsc -b ../../packages/shared ../../packages/file-format ../../packages/storage tsconfig.main.json",
     "build:renderer": "vite build"
   },
   "dependencies": {
     "@fluiddiagram/runtime-renderer": "workspace:*",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@fluiddiagram/storage": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

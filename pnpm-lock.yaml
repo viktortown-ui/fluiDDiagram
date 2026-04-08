@@ -41,6 +41,9 @@ importers:
       '@fluiddiagram/runtime-renderer':
         specifier: workspace:*
         version: link:../../packages/runtime-renderer
+      '@fluiddiagram/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
       react:
         specifier: ^19.0.0
         version: 19.2.4
@@ -95,6 +98,9 @@ importers:
       '@fluiddiagram/domain':
         specifier: workspace:*
         version: link:../domain
+      '@fluiddiagram/shared':
+        specifier: workspace:*
+        version: link:../shared
       zod:
         specifier: ^3.24.1
         version: 3.25.76
