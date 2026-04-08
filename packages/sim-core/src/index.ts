@@ -4,13 +4,13 @@ import type {
   HydraulicEdgeState,
   HydraulicNodeState,
   SimulationResult
-} from "@fluiddiagram/domain-model";
+} from "@fluiddiagram/domain";
 import type {
   BallValveConfig,
   CentrifugalPumpConfig,
   PipeConfig,
   TankConfig
-} from "@fluiddiagram/equipment-library";
+} from "@fluiddiagram/equipment-lib";
 
 const MIN_RESISTANCE = 0.0001;
 

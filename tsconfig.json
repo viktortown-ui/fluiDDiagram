@@ -1,0 +1,40 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@fluiddiagram/shared": [
+        "packages/shared/src/index.ts"
+      ],
+      "@fluiddiagram/domain": [
+        "packages/domain/src/index.ts"
+      ],
+      "@fluiddiagram/equipment-lib": [
+        "packages/equipment-lib/src/index.ts"
+      ],
+      "@fluiddiagram/editor-engine": [
+        "packages/editor-engine/src/index.ts"
+      ],
+      "@fluiddiagram/sim-core": [
+        "packages/sim-core/src/index.ts"
+      ],
+      "@fluiddiagram/file-format": [
+        "packages/file-format/src/index.ts"
+      ],
+      "@fluiddiagram/storage": [
+        "packages/storage/src/index.ts"
+      ],
+      "@fluiddiagram/runtime-renderer": [
+        "packages/runtime-renderer/src/index.tsx"
+      ]
+    },
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "apps/**/*.ts",
+    "apps/**/*.tsx",
+    "packages/**/*.ts",
+    "packages/**/*.tsx"
+  ]
+}

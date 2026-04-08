@@ -1,11 +1,14 @@
 {
   "files": [],
   "references": [
-    { "path": "packages/domain-model" },
-    { "path": "packages/equipment-library" },
+    { "path": "packages/shared" },
+    { "path": "packages/domain" },
+    { "path": "packages/equipment-lib" },
     { "path": "packages/editor-engine" },
-    { "path": "packages/simulation-core" },
-    { "path": "packages/storage-format" },
+    { "path": "packages/sim-core" },
+    { "path": "packages/file-format" },
+    { "path": "packages/storage" },
+    { "path": "packages/runtime-renderer" },
     { "path": "apps/desktop" }
   ]
 }

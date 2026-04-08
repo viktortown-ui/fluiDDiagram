@@ -1,4 +1,4 @@
-import type { EquipmentKind } from "@fluiddiagram/domain-model";
+import type { EquipmentKind } from "@fluiddiagram/domain";
 
 export interface TankConfig {
   diameterM: number;
@@ -86,7 +86,11 @@ const definitions: { [K in EquipmentKind]: EquipmentDefinition<K> } = {
 export function getEquipmentDefinition<K extends EquipmentKind>(
   kind: K
 ): EquipmentDefinition<K> {
-  return definitions[kind];
+  const definition = definitions[kind];
+  if (!definition) {
+    throw new Error(`Unknown equipment kind: ${kind}`);
+  }
+  return definition;
 }
 
 export function listEquipmentDefinitions(): EquipmentDefinition[] {

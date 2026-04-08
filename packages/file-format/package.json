@@ -1,11 +1,12 @@
 {
-  "name": "@fluiddiagram/equipment-library",
+  "name": "@fluiddiagram/file-format",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@fluiddiagram/domain-model": "workspace:*"
+    "@fluiddiagram/domain": "workspace:*",
+    "zod": "^3.24.1"
   }
 }

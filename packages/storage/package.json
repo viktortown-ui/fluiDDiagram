@@ -1,12 +1,12 @@
 {
-  "name": "@fluiddiagram/simulation-core",
+  "name": "@fluiddiagram/storage",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@fluiddiagram/domain-model": "workspace:*",
-    "@fluiddiagram/equipment-library": "workspace:*"
+    "@fluiddiagram/file-format": "workspace:*",
+    "@fluiddiagram/shared": "workspace:*"
   }
 }

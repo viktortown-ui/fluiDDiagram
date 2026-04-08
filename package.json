@@ -9,12 +9,22 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "tsc -b tsconfig.build.json",
-    "typecheck": "tsc -b tsconfig.build.json --pretty false",
-    "clean": "rm -rf .tsbuildinfo apps/*/dist packages/*/dist",
-    "lint": "echo 'Linting setup intentionally deferred until tooling policy is defined.'"
+    "dev": "pnpm --filter @fluiddiagram/desktop dev",
+    "build": "tsc -b tsconfig.build.json && pnpm --filter @fluiddiagram/desktop build:renderer",
+    "typecheck": "tsc -p tsconfig.json --pretty false",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write .",
+    "clean": "rm -rf .tsbuildinfo apps/*/dist apps/*/.vite packages/*/dist"
   },
   "devDependencies": {
-    "typescript": "^5.7.2"
+    "@eslint/js": "^9.24.0",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.29.0"
   }
 }

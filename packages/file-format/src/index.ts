@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { DiagramGraph, FluidProfile } from "@fluiddiagram/domain-model";
+import type { DiagramGraph, FluidProfile } from "@fluiddiagram/domain";
 
 export const PROJECT_FILE_NAME = "project.fd.json";
 export const AUTOSAVE_DIR = "autosave";

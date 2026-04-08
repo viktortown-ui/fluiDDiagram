@@ -2,16 +2,12 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "rootDir": "src",
-    "outDir": "dist",
     "jsx": "react-jsx",
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": "../../",
+    "paths": {
+      "@fluiddiagram/runtime-renderer": ["packages/runtime-renderer/src/index.tsx"]
+    }
   },
-  "references": [
-    { "path": "../../packages/domain-model" },
-    { "path": "../../packages/editor-engine" },
-    { "path": "../../packages/simulation-core" },
-    { "path": "../../packages/storage-format" }
-  ],
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/renderer/**/*.ts", "src/renderer/**/*.tsx", "vite.config.ts"]
 }
