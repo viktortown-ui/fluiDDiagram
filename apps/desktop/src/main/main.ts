@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { ProjectStorageService, AppStorageService } from "@fluiddiagram/storage";
 
 const DEV_SERVER_URL = process.env.VITE_DEV_SERVER_URL ?? "http://127.0.0.1:5173";
+const DEV_SEED_PROJECT_FLAG = "FD_DESKTOP_SEED_SAMPLE_PROJECT";
 
 async function createWindow(): Promise<void> {
   const mainWindow = new BrowserWindow({
@@ -25,7 +26,16 @@ async function createWindow(): Promise<void> {
   await mainWindow.loadFile(new URL("../../index.html", import.meta.url).pathname);
 }
 
-async function ensureWorkspaceSeed(): Promise<void> {
+async function ensureAppStorage(): Promise<void> {
+  const appStorage = new AppStorageService(app);
+  await appStorage.ensureBaseDirectories();
+}
+
+async function maybeSeedDevProject(): Promise<void> {
+  if (app.isPackaged || process.env[DEV_SEED_PROJECT_FLAG] !== "1") {
+    return;
+  }
+
   const appStorage = new AppStorageService(app);
   const projectStorage = new ProjectStorageService();
 
@@ -44,7 +54,8 @@ async function ensureWorkspaceSeed(): Promise<void> {
 }
 
 app.whenReady().then(async () => {
-  await ensureWorkspaceSeed();
+  await ensureAppStorage();
+  await maybeSeedDevProject();
   await createWindow();
 
   app.on("activate", () => {
