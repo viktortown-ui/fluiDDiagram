@@ -4,18 +4,27 @@
   "private": true,
   "type": "module",
   "main": "dist/main/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"pnpm dev:renderer\" \"pnpm dev:electron\"",
+    "dev:renderer": "vite",
+    "dev:electron": "wait-on tcp:5173 && tsc -p tsconfig.main.json && electron dist/main/main.js",
+    "build": "pnpm build:main && pnpm build:renderer",
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:renderer": "vite build"
+  },
   "dependencies": {
-    "@fluiddiagram/domain-model": "workspace:*",
-    "@fluiddiagram/editor-engine": "workspace:*",
-    "@fluiddiagram/simulation-core": "workspace:*",
-    "@fluiddiagram/storage-format": "workspace:*",
+    "@fluiddiagram/runtime-renderer": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.13.8",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "electron": "^34.0.0"
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "electron": "^35.1.2",
+    "vite": "^6.2.2",
+    "wait-on": "^8.0.2"
   }
 }

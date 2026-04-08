@@ -6,8 +6,8 @@
     "outDir": "dist"
   },
   "references": [
-    { "path": "../domain" },
-    { "path": "../equipment-lib" }
+    { "path": "../file-format" },
+    { "path": "../shared" }
   ],
   "include": ["src/**/*.ts"]
 }

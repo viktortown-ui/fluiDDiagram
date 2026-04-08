@@ -5,8 +5,8 @@ import type {
   EdgeId,
   EquipmentKind,
   NodeId
-} from "@fluiddiagram/domain-model";
-import { getEquipmentDefinition } from "@fluiddiagram/equipment-library";
+} from "@fluiddiagram/domain";
+import { getEquipmentDefinition } from "@fluiddiagram/equipment-lib";
 
 export function createEmptyGraph(): DiagramGraph {
   return { nodes: {}, edges: {} };

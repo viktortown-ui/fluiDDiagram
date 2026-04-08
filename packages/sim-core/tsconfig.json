@@ -5,6 +5,9 @@
     "rootDir": "src",
     "outDir": "dist"
   },
-  "references": [{ "path": "../domain-model" }],
+  "references": [
+    { "path": "../domain" },
+    { "path": "../equipment-lib" }
+  ],
   "include": ["src/**/*.ts"]
 }
