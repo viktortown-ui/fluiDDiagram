@@ -11,7 +11,8 @@ export const PROJECT_DIRS = {
   libraries: "libraries",
   snapshots: "snapshots",
   results: "results",
-  metadata: "metadata"
+  metadata: "metadata",
+  migrations: "migrations"
 } as const;
 
 const nodeSchema = z.object({
