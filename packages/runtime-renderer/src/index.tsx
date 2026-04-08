@@ -1,25 +1,29 @@
 import React from "react";
 import { addNode, connect, createEmptyGraph, createNode } from "@fluiddiagram/editor-engine";
+import { asEdgeId, asNodeId, asPortId } from "@fluiddiagram/domain";
 import { runHydraulicSimulation } from "@fluiddiagram/sim-core";
 
 function seedGraph() {
   return connect(
     connect(
       addNode(
-        addNode(addNode(createEmptyGraph(), createNode("tank-1", "Tank", { x: 80, y: 80 })), createNode("pump-1", "CentrifugalPump", { x: 260, y: 80 })),
-        createNode("valve-1", "BallValve", { x: 440, y: 80 })
+        addNode(
+          addNode(createEmptyGraph(), createNode(asNodeId("tank-1"), "Tank", { x: 80, y: 80 })),
+          createNode(asNodeId("pump-1"), "CentrifugalPump", { x: 260, y: 80 })
+        ),
+        createNode(asNodeId("valve-1"), "BallValve", { x: 440, y: 80 })
       ),
-      "edge-1",
-      "tank-1",
-      "outlet",
-      "pump-1",
-      "suction"
+      asEdgeId("edge-1"),
+      asNodeId("tank-1"),
+      asPortId("outlet"),
+      asNodeId("pump-1"),
+      asPortId("suction")
     ),
-    "edge-2",
-    "pump-1",
-    "discharge",
-    "valve-1",
-    "inlet"
+    asEdgeId("edge-2"),
+    asNodeId("pump-1"),
+    asPortId("discharge"),
+    asNodeId("valve-1"),
+    asPortId("inlet")
   );
 }
 
