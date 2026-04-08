@@ -6,9 +6,6 @@
     "outDir": "dist",
     "jsx": "react-jsx"
   },
-  "references": [
-    { "path": "../editor-engine" },
-    { "path": "../sim-core" }
-  ],
+  "references": [{ "path": "../domain" }],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

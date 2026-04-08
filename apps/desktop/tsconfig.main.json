@@ -4,7 +4,13 @@
     "composite": true,
     "rootDir": "src",
     "outDir": "dist",
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": "../../",
+    "paths": {
+      "@fluiddiagram/storage": ["packages/storage/src/index.ts"],
+      "@fluiddiagram/file-format": ["packages/file-format/src/index.ts"]
+    }
   },
+  "references": [{ "path": "../../packages/storage" }, { "path": "../../packages/file-format" }],
   "include": ["src/main/**/*.ts", "src/preload/**/*.ts"]
 }

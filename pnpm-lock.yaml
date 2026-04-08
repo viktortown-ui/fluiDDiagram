@@ -38,9 +38,15 @@ importers:
 
   apps/desktop:
     dependencies:
+      '@fluiddiagram/file-format':
+        specifier: workspace:*
+        version: link:../../packages/file-format
       '@fluiddiagram/runtime-renderer':
         specifier: workspace:*
         version: link:../../packages/runtime-renderer
+      '@fluiddiagram/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
       react:
         specifier: ^19.0.0
         version: 19.2.4
@@ -101,12 +107,9 @@ importers:
 
   packages/runtime-renderer:
     dependencies:
-      '@fluiddiagram/editor-engine':
+      '@fluiddiagram/domain':
         specifier: workspace:*
-        version: link:../editor-engine
-      '@fluiddiagram/sim-core':
-        specifier: workspace:*
-        version: link:../sim-core
+        version: link:../domain
       react:
         specifier: ^19.0.0
         version: 19.2.4

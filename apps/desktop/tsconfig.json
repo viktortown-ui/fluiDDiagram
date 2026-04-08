@@ -2,12 +2,23 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
+    "rootDir": ".",
+    "outDir": "dist/renderer-types",
     "jsx": "react-jsx",
     "types": ["node"],
     "baseUrl": "../../",
     "paths": {
-      "@fluiddiagram/runtime-renderer": ["packages/runtime-renderer/src/index.tsx"]
+      "@fluiddiagram/runtime-renderer": ["packages/runtime-renderer/src/index.tsx"],
+      "@fluiddiagram/editor-engine": ["packages/editor-engine/src/index.ts"],
+      "@fluiddiagram/sim-core": ["packages/sim-core/src/index.ts"],
+      "@fluiddiagram/file-format": ["packages/file-format/src/index.ts"]
     }
   },
+  "references": [
+    { "path": "../../packages/runtime-renderer" },
+    { "path": "../../packages/editor-engine" },
+    { "path": "../../packages/sim-core" },
+    { "path": "../../packages/file-format" }
+  ],
   "include": ["src/renderer/**/*.ts", "src/renderer/**/*.tsx", "vite.config.ts"]
 }

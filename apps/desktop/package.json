@@ -13,7 +13,9 @@
     "build:renderer": "vite build"
   },
   "dependencies": {
+    "@fluiddiagram/file-format": "workspace:*",
     "@fluiddiagram/runtime-renderer": "workspace:*",
+    "@fluiddiagram/storage": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

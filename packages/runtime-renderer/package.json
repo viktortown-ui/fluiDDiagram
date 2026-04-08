@@ -6,8 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@fluiddiagram/editor-engine": "workspace:*",
-    "@fluiddiagram/sim-core": "workspace:*",
+    "@fluiddiagram/domain": "workspace:*",
     "react": "^19.0.0"
   }
 }

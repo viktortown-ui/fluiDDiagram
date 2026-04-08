@@ -10,7 +10,8 @@ export default defineConfig({
       "@fluiddiagram/editor-engine": resolve(__dirname, "../../packages/editor-engine/src/index.ts"),
       "@fluiddiagram/sim-core": resolve(__dirname, "../../packages/sim-core/src/index.ts"),
       "@fluiddiagram/equipment-lib": resolve(__dirname, "../../packages/equipment-lib/src/index.ts"),
-      "@fluiddiagram/domain": resolve(__dirname, "../../packages/domain/src/index.ts")
+      "@fluiddiagram/domain": resolve(__dirname, "../../packages/domain/src/index.ts"),
+      "@fluiddiagram/file-format": resolve(__dirname, "../../packages/file-format/src/index.ts")
     }
   }
 });
