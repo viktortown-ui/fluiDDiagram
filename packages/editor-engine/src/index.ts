@@ -1,14 +1,20 @@
 import type {
+  BuiltinEquipmentTypeId,
   DiagramEdge,
   DiagramGraph,
   DiagramNode,
   EdgeId,
   EquipmentInstanceId,
-  EquipmentKind,
+  EquipmentTypeId,
   NodeId,
   PortId
 } from "@fluiddiagram/domain";
-import { getEquipmentDefinition, instantiatePorts } from "@fluiddiagram/equipment-lib";
+import { BUILTIN_EQUIPMENT_TYPE_IDS } from "@fluiddiagram/domain";
+import {
+  getEquipmentDefinition,
+  instantiateEquipmentDefaults,
+  instantiatePorts
+} from "@fluiddiagram/equipment-lib";
 
 export function createEmptyGraph(): DiagramGraph {
   return { nodes: {}, edges: {} };
@@ -33,22 +39,33 @@ export function addNode(
 
 export function createNode(
   id: NodeId,
-  kind: EquipmentKind,
+  equipmentTypeId: EquipmentTypeId,
   position: { x: number; y: number }
 ): DiagramNode {
-  const definition = getEquipmentDefinition(kind);
+  const definition = getEquipmentDefinition(equipmentTypeId);
+  if (
+    !BUILTIN_EQUIPMENT_TYPE_IDS.includes(
+      equipmentTypeId as (typeof BUILTIN_EQUIPMENT_TYPE_IDS)[number]
+    )
+  ) {
+    throw new Error(
+      `Unsupported equipmentTypeId for DiagramNode.kind legacy field: ${equipmentTypeId}`
+    );
+  }
+  const builtinEquipmentTypeId = equipmentTypeId as BuiltinEquipmentTypeId;
+
   return {
     id,
     equipmentInstanceId: id as unknown as EquipmentInstanceId,
-    equipmentTypeId: kind,
-    kind,
+    equipmentTypeId,
+    kind: builtinEquipmentTypeId,
     label: `${definition.displayName} ${id}`,
-    config: structuredClone(definition.defaultConfig),
+    config: instantiateEquipmentDefaults(equipmentTypeId),
     placement: {
       position,
       orientationDeg: 0
     },
-    ports: instantiatePorts(kind)
+    ports: instantiatePorts(equipmentTypeId)
   };
 }
 
