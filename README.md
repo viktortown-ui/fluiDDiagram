@@ -34,6 +34,21 @@ pnpm dev
 - `pnpm lint` runs shared ESLint config.
 - `pnpm format` runs shared Prettier config.
 
+## Windows local launch scripts
+
+For easier local review on Windows, the repository includes two batch files at the repo root.
+
+- `run-dev.bat`
+  - Starts the desktop app in development mode (`pnpm dev`).
+- `update-and-run.bat`
+  - Pulls the latest git changes.
+  - Runs `pnpm install`.
+  - Starts the desktop app in development mode (`pnpm dev`).
+
+Use these scripts from a **locally cloned repository** (not from a downloaded ZIP without git history).
+
+If helpful, you can create Windows desktop shortcuts to either script for one-click local startup.
+
 ## Architectural decisions
 
 1. **Desktop-first shell**: Electron owns lifecycle, window management, and local workspace initialization.
